@@ -1,4 +1,5 @@
 import RSS from "rss";
+import striptags from "striptags";
 
 export const generateRSSFeed = (blogPosts) => {
   const feed = new RSS({
@@ -12,13 +13,14 @@ export const generateRSSFeed = (blogPosts) => {
   });
 
   blogPosts.forEach((post) => {
+    const contentWithoutTags = striptags(post.content); // Remove HTML tags
     feed.item({
       title: post.title,
       description: post.description,
       url: `https://itboomi.com/blog/${post.title}`, // Use slugified title
       date: post.createdAt.toDate(),
       custom_elements: [
-        { "content:encoded": post.content }, // Include full content as HTML
+        { contentWithoutTags }, // Include content without HTML tags
       ],
     });
   });
