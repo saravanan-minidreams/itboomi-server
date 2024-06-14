@@ -14,19 +14,24 @@ export const generateRSSFeed = (blogPosts) => {
   });
 
   blogPosts.forEach((post) => {
-    console.log(post.title);
     const $ = cheerio.load(post.content);
     const titleFromContent = $("h1").text();
 
-    const formattedTitle = titleFromContent.replace(/%20/g, "-");
-    const contentWithoutTags = striptags(post.content);
+    // Sanitize HTML content
+    const sanitizedContent = striptags(post.content);
+
+    const formattedTitle = titleFromContent
+      .replace(/\s+/g, "-") // Replace spaces with dashes
+      .replace(/[^a-zA-Z0-9-]/g, "") // Remove all special characters except hyphens
+      .replace(/-{2,}/g, "-") // Remove consecutive hyphens
+      .toLowerCase();
 
     feed.item({
       title: titleFromContent,
       description: post.description,
       url: `https://itboomi.com/blog/${formattedTitle}`,
       date: post.createdAt.toDate(),
-      custom_elements: [{ contentWithoutTags }],
+      custom_elements: [{ "content:encoded": { _cdata: sanitizedContent } }],
     });
   });
 

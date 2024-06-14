@@ -70,63 +70,32 @@ const links = [
   },
 ];
 
-const fetchDynamicRoutes = async () => {
-  try {
-    const response = await fetch(
-      "https://udaney-server.onrender.com/all/blogs"
-    );
+const handleNavigation = (blog) => {
+  setId(blog.id);
+  localStorage.setItem("blogId", blog.id);
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+  const extractTitleAndDescription = (content) => {
+    const doc = new DOMParser().parseFromString(content, "text/html");
+    const titleElement = doc.querySelector("h1");
+    const descriptionElement = doc.querySelector("p");
 
-    const blogs = await response.json();
+    const title = titleElement ? titleElement.textContent : "Untitled";
+    const description = descriptionElement
+      ? descriptionElement.textContent
+      : "";
 
-    // Function to sanitize HTML content and extract first h1 content
-    const extractFirstH1 = (html) => {
-      const dom = new JSDOM(html);
-      const firstH1Element = dom.window.document.querySelector("h1");
+    return { title, description };
+  };
 
-      if (firstH1Element) {
-        // Use sanitize-html to strip all HTML tags
-        let h1Content = sanitizeHtml(firstH1Element.innerHTML, {
-          allowedTags: [], // No tags allowed, just strip everything
-          allowedAttributes: {}, // No attributes allowed
-        });
+  const { title, description } = extractTitleAndDescription(blog.content);
 
-        // Remove unwanted characters and format
-        h1Content = h1Content
-          .trim()
-          .toLowerCase()
-          .replace(/[^\w\s]/gi, "")
-          .replace(/\s+/g, "-");
+  // Remove all special characters except hyphens from the title for URL
+  const urlEndpoint = title
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-zA-Z0-9-]/g, "");
 
-        return h1Content;
-      }
-
-      return null; // Return null if no h1 tag is found
-    };
-
-    // Map blogs to sitemap format
-    return blogs.map((blog) => {
-      const htmlContent = blog.content;
-      const firstH1Text = extractFirstH1(htmlContent);
-
-      // Get the date in YYYY-MM-DD format
-      const date = new Date(blog.createdAt.seconds * 1000);
-      const lastmod = date.toLocaleDateString("en-US");
-
-      return {
-        url: firstH1Text ? `/blog/${firstH1Text}` : `/blog/${blog.id}`,
-        changefreq: "weekly",
-        priority: 0.8,
-        lastmod: lastmod,
-      };
-    });
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
-    return [];
-  }
+  navigate(`/blog/${urlEndpoint}`);
 };
 
 // Example usage:
