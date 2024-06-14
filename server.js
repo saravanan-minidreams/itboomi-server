@@ -3,12 +3,10 @@ import { app } from "./src/Api/Middlewares/middlewares.js";
 import routes from "./src/Api/Routes/routes.js";
 import { baseUrl, unknownUrl } from "./src/Api/Controllers/controllers.js";
 import { startServer } from "./src/Server/startServer.js";
-import { BASE_URL } from "./src/Config/environment.js";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import functions from "firebase-functions";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
