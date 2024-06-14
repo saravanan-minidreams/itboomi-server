@@ -1,21 +1,27 @@
+import { app } from "./src/Api/Middlewares/middlewares.js";
+import routes from "./src/Api/Routes/routes.js";
+import { baseUrl, unknownUrl } from "./src/Api/Controllers/controllers.js";
+import { startServer } from "./src/Server/startServer.js";
+import { BASE_URL } from "./src/Config/environment.js";
 import express from "express";
-import { fetchBlogPosts } from "./fetchBlogPosts.js";
-import { generateRSSFeed } from "./feed.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-app.get("/feed", async (req, res) => {
-  try {
-    const blogPosts = await fetchBlogPosts();
-    const rssFeed = generateRSSFeed(blogPosts);
-    res.type("application/xml");
-    res.send(rssFeed);
-  } catch (error) {
-    res.status(500).send("Error generating RSS feed");
-  }
-});
+// Mount the user data routes middleware at the specified BASE_URL (From Routes Folder)
+app.use(routes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+//Base_URL --------------------------------------------------------------------
+app.get("/", baseUrl);
+
+//Unknown_URL------------------------------------------------------------------
+app.get("*", unknownUrl);
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, "public")));
+
+// Call the function to start the server(From Server/startServer.js Folder)
+startServer();
