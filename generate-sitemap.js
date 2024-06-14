@@ -72,7 +72,9 @@ const links = [
 
 const fetchDynamicRoutes = async () => {
   try {
-    const response = await fetch("http://localhost:5000/all/blogs");
+    const response = await fetch(
+      "https://udaney-server.onrender.com/all/blogs"
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

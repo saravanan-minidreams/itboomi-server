@@ -23,6 +23,9 @@ app.get("*", unknownUrl);
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/sitemap.xml", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+});
+
 // Call the function to start the server (From Server/startServer.js Folder)
 startServer();
-
