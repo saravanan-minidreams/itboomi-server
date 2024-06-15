@@ -2,9 +2,9 @@ import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 import fs from "fs";
 import path from "path";
-import fetch from "node-fetch";
-import { JSDOM } from "jsdom";
-import sanitizeHtml from "sanitize-html";
+import { fetchBlogPosts } from "./src/Api/Db/getBlogData.js";
+import striptags from "striptags";
+import cheerio from "cheerio";
 
 // Define your static routes here
 const links = [
@@ -70,42 +70,41 @@ const links = [
   },
 ];
 
-const handleNavigation = (blog) => {
-  setId(blog.id);
-  localStorage.setItem("blogId", blog.id);
+// Function to fetch dynamic routes (blog posts)
+const fetchDynamicRoutes = async () => {
+  try {
+    const blogPosts = await fetchBlogPosts(); // Assuming fetchBlogPosts returns a promise
 
-  const extractTitleAndDescription = (content) => {
-    const doc = new DOMParser().parseFromString(content, "text/html");
-    const titleElement = doc.querySelector("h1");
-    const descriptionElement = doc.querySelector("p");
+    // Ensure blogPosts is an array
+    if (!Array.isArray(blogPosts)) {
+      throw new Error("fetchBlogPosts did not return an array of blog posts");
+    }
 
-    const title = titleElement ? titleElement.textContent : "Untitled";
-    const description = descriptionElement
-      ? descriptionElement.textContent
-      : "";
+    return blogPosts.map((post) => {
+      const $ = cheerio.load(post.content);
+      const titleFromContent = $("h1").text();
 
-    return { title, description };
-  };
+      // Sanitize HTML content
+      const sanitizedContent = striptags(post.content);
 
-  const { title, description } = extractTitleAndDescription(blog.content);
+      const formattedTitle = titleFromContent
+        .replace(/\s+/g, "-") // Replace spaces with dashes
+        .replace(/[^a-zA-Z0-9-]/g, "") // Remove all special characters except hyphens
+        .replace(/-{2,}/g, "-") // Remove consecutive hyphens
+        .toLowerCase();
 
-  // Remove all special characters except hyphens from the title for URL
-  const urlEndpoint = title
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-zA-Z0-9-]/g, "");
-
-  navigate(`/blog/${urlEndpoint}`);
-};
-
-// Example usage:
-fetchDynamicRoutes()
-  .then((routes) => {
-    console.log("Dynamic routes:", routes);
-  })
-  .catch((error) => {
+      return {
+        url: `/blog/${formattedTitle}`,
+        lastmod: post.lastmod || new Date().toLocaleDateString("en-US"),
+        changefreq: post.changefreq || "daily",
+        priority: post.priority || 0.7,
+      };
+    });
+  } catch (error) {
     console.error("Error fetching dynamic routes:", error);
-  });
+    return [];
+  }
+};
 
 const generateSitemap = async () => {
   try {
