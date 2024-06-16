@@ -1,10 +1,10 @@
 import { db } from "../../Config/database.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import generateSitemap from "../../../generate-sitemap.js";
+import { generateRSSFeed } from "../Utils/rssUtils.js";
 
 export const saveBlog = async (req, res) => {
-
-  console.log("res", req.body)
+  console.log("res", req.body);
   const {
     name,
     image,
@@ -33,9 +33,10 @@ export const saveBlog = async (req, res) => {
       .status(200)
       .json({ message: "Blog post added successfully", id: docRef.id });
 
-      if(res){
-        generateSitemap()
-      }
+    if (res) {
+      generateSitemap();
+      generateRSSFeed();
+    }
   } catch (error) {
     res
       .status(500)
