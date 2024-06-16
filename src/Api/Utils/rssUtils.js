@@ -26,13 +26,19 @@ export const generateRSSFeed = (blogPosts) => {
       .replace(/-{2,}/g, "-") // Remove consecutive hyphens
       .toLowerCase();
 
+    // Construct image URL - Replace with actual image URL
+    const imageUrl =
+      post.imageUrl || "https://itboomi.com/path/to/your/default-image.jpg";
+
     feed.item({
-      image: post.image,
       title: titleFromContent,
       description: post.description,
-      url: `https://itboomi.com/blog/${formattedTitle}`,
+      url: `https://itboomi.com/blog/${formattedTitle}${post.id}`,
       date: post.createdAt.toDate(),
-      custom_elements: [{ "content:encoded": { _cdata: sanitizedContent } }],
+      custom_elements: [
+        { "content:encoded": { _cdata: sanitizedContent } },
+        { "media:content": { url: imageUrl, type: "image/jpeg" } },
+      ],
     });
   });
 

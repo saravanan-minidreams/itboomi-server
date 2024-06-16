@@ -14,7 +14,7 @@
         <loc>https://itboomi.com/about</loc>
         <lastmod>2024-06-15T18:30:00.000Z</lastmod>
         <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://itboomi.com/contact</loc>
@@ -65,34 +65,36 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://itboomi.com/blog/366-days-of-success-milestones-memories-and-moving-forward-</loc>
-        <lastmod>2024-06-15T18:30:00.000Z</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>https://itboomi.com/blog/app-launch-on-a-budget-free-strategies-for-custom-mobile-apps-</loc>
+        <loc>
+            https://itboomi.com/blog/366-days-of-success-milestones-memories-and-moving-forward-4NlNpTKpT1wNyExPqYQu</loc>
         <lastmod>2024-06-15T18:30:00.000Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>
-            https://itboomi.com/blog/launch-your-online-business-in-6-weeks-the-fast-track-to-success</loc>
+            https://itboomi.com/blog/app-launch-on-a-budget-free-strategies-for-custom-mobile-apps-9CozL8cSAoLAaj3FcKvo</loc>
         <lastmod>2024-06-15T18:30:00.000Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>
-            https://itboomi.com/blog/building-an-app-in-coimbatore-why-react-native-should-be-your-top-choice</loc>
+            https://itboomi.com/blog/launch-your-online-business-in-6-weeks-the-fast-track-to-successII0a1stPAQqF8jTEWwDg</loc>
         <lastmod>2024-06-15T18:30:00.000Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>
-            https://itboomi.com/blog/measure-what-matters-track-your-digital-marketing-roi-like-a-pro-</loc>
+            https://itboomi.com/blog/building-an-app-in-coimbatore-why-react-native-should-be-your-top-choiceQz8aHSFbnYHSkZEjqR0k</loc>
+        <lastmod>2024-06-15T18:30:00.000Z</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>
+            https://itboomi.com/blog/measure-what-matters-track-your-digital-marketing-roi-like-a-pro-kGuvwyGhPQuWsgqkqdLn</loc>
         <lastmod>2024-06-15T18:30:00.000Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>

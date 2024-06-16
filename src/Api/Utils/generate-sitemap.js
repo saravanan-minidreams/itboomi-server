@@ -93,7 +93,7 @@ const fetchDynamicRoutes = async () => {
         .toLowerCase();
 
       return {
-        url: `/blog/${formattedTitle}`,
+        url: `/blog/${formattedTitle}${post.id}`,
         lastmod: post.lastmod || new Date().toLocaleDateString("en-US"),
         changefreq: post.changefreq || "daily",
         priority: post.priority || 0.7,
