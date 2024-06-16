@@ -2,7 +2,7 @@ import { SitemapStream, streamToPromise } from "sitemap";
 import { Readable } from "stream";
 import fs from "fs";
 import path from "path";
-import { fetchBlogPosts } from "./src/Api/Db/getBlogData.js";
+import { fetchBlogPosts } from "../Db/getBlogData.js";
 import striptags from "striptags";
 import cheerio from "cheerio";
 
@@ -74,7 +74,7 @@ const links = [
 const fetchDynamicRoutes = async () => {
   try {
     const blogPosts = await fetchBlogPosts();
-    
+
     if (!Array.isArray(blogPosts)) {
       throw new Error("fetchBlogPosts did not return an array of blog posts");
     }

@@ -1,6 +1,6 @@
 import { db } from "../../Config/database.js";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import generateSitemap from "../../../generate-sitemap.js";
+import generateSitemap from "../Utils/generate-sitemap.js";
 import { generateRSSFeed } from "../Utils/rssUtils.js";
 
 export const saveBlog = async (req, res) => {
@@ -35,7 +35,6 @@ export const saveBlog = async (req, res) => {
 
     if (res) {
       generateSitemap();
-      generateRSSFeed();
     }
   } catch (error) {
     res

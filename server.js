@@ -20,16 +20,17 @@ app.get("/", baseUrl);
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/sitemap.xml", async (req, res) => {
-  try {
-    // Send sitemap.xml file
-    res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
-    // await generateSitemap();
-  } catch (error) {
-    console.error("Error handling /sitemap.xml request:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+// app.get("/sitemap.xml", async (req, res) => {
+//   try {
+//     // Generate sitemap before sending the file
+//     // Send sitemap.xml file
+//     console.log("get request from sitemap.xml", req);
+//     res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+//   } catch (error) {
+//     console.error("Error handling /sitemap.xml request:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 // Unknown_URL ------------------------------------------------------------------
 app.get("*", unknownUrl);

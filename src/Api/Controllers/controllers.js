@@ -1,6 +1,7 @@
 import {
   blogServices,
   blogsServices,
+  getSitemapServices,
   getWelcomeMessage,
   postBlogServices,
   redirectBaseUrl,
@@ -39,3 +40,7 @@ export const postBlogController = async (req, res) => {
   await postBlogServices(req, res);
 };
 
+//Get sitemap ---------------------------------------------------------
+export const getSitemapController = async (req, res) => {
+  await getSitemapServices(req, res);
+};

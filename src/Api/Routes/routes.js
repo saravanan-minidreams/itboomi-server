@@ -2,6 +2,7 @@ import express from "express";
 import {
   blogsController,
   getBlogController,
+  getSitemapController,
   postBlogController,
   rssControllers,
 } from "../Controllers/controllers.js";
@@ -19,6 +20,7 @@ router.get("/all/blogs", blogsController);
 router.get("/blog/:id", getBlogController);
 
 // Post blog request -------------------------------------------
-
 router.post("/save/blog", postBlogController);
 
+// Get sitemap -------------------------------------------------
+router.get("/sitemap", getSitemapController);

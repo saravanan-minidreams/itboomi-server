@@ -62,3 +62,15 @@ export const postBlogServices = (req, res) => {
   saveBlog(req, res);
 };
 
+//Get sitemap ----------------------------------------------------------
+export const getSitemapServices = (req, res) => {
+  try {
+    // Generate sitemap before sending the file
+    // Send sitemap.xml file
+    console.log("get request from sitemap.xml", req);
+    res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+  } catch (error) {
+    console.error("Error handling /sitemap.xml request:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
