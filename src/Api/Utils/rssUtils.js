@@ -29,7 +29,7 @@ export const generateRSSFeed = (blogPosts) => {
     feed.item({
       title: titleFromContent,
       description: post.description,
-      url: `https://itboomi.com/blog/${formattedTitle}`,
+      url: `https://itboomi.com/blog/${formattedTitle}${post.id}`,
       date: post.createdAt.toDate(),
       custom_elements: [{ "content:encoded": { _cdata: sanitizedContent } }],
     });
