@@ -20,4 +20,5 @@ router.get("/blog/:id", getBlogController);
 
 // Post blog request -------------------------------------------
 
-router.post("/save/blog" , postBlogController)
+router.post("/save/blog", postBlogController);
+

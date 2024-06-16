@@ -38,3 +38,4 @@ export const getBlogController = async (req, res) => {
 export const postBlogController = async (req, res) => {
   await postBlogServices(req, res);
 };
+

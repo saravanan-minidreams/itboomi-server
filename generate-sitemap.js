@@ -73,9 +73,8 @@ const links = [
 // Function to fetch dynamic routes (blog posts)
 const fetchDynamicRoutes = async () => {
   try {
-    const blogPosts = await fetchBlogPosts(); // Assuming fetchBlogPosts returns a promise
-
-    // Ensure blogPosts is an array
+    const blogPosts = await fetchBlogPosts();
+    
     if (!Array.isArray(blogPosts)) {
       throw new Error("fetchBlogPosts did not return an array of blog posts");
     }
@@ -108,9 +107,8 @@ const fetchDynamicRoutes = async () => {
 
 const generateSitemap = async () => {
   try {
-    // Fetch dynamic routes
+    // Fetch dynamic routes since last update
     const dynamicRoutes = await fetchDynamicRoutes();
-
     // Merge static and dynamic routes
     const allRoutes = [...links, ...dynamicRoutes];
 
@@ -134,13 +132,14 @@ const generateSitemap = async () => {
     const publicPath = path.resolve("./public");
     fs.writeFileSync(path.resolve(publicPath, "sitemap.xml"), xmlString);
 
+    // Update lastUpdate timestamp
+    // lastUpdate = new Date();
+
     console.log("Sitemap generated successfully.");
   } catch (error) {
     console.error("Error generating sitemap:", error);
   }
 };
 
-// Run the generate sitemap function
-generateSitemap().catch((err) => {
-  console.error("Error generating sitemap:", err);
-});
+// Export the generateSitemap function for use in other modules
+export default generateSitemap;

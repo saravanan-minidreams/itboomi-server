@@ -27,6 +27,7 @@ export const generateRSSFeed = (blogPosts) => {
       .toLowerCase();
 
     feed.item({
+      image: post.image,
       title: titleFromContent,
       description: post.description,
       url: `https://itboomi.com/blog/${formattedTitle}`,
