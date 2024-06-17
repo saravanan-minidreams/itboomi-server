@@ -6,7 +6,7 @@ export const generateRSSFeed = (blogPosts) => {
   const feed = new RSS({
     title: "My Blog",
     description: "This is my blog where I write about various topics.",
-    feed_url: "https://itboomi.com/feed",
+    feed_url: "https://itboomi-server.onrender.com/feed",
     site_url: "https://itboomi.com",
     language: "en",
     pubDate: new Date(),
