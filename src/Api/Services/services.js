@@ -65,8 +65,6 @@ export const postBlogServices = (req, res) => {
 //Get sitemap ----------------------------------------------------------
 export const getSitemapServices = (req, res) => {
   try {
-    // Generate sitemap before sending the file
-    // Send sitemap.xml file
     console.log("get request from sitemap.xml", req);
     res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
   } catch (error) {
