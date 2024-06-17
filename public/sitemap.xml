@@ -5,7 +5,7 @@
     xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
     xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
     <url>
-        <loc>https://itboomi.com/</loc>
+          <loc>https://itboomi.com/</loc>
         <lastmod>2024-06-15T18:30:00.000Z</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
